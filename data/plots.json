@@ -1,0 +1,44 @@
+[
+  {
+    "descr": "In this section I will introduce some hypothesis about factors that correlate with salaries of employees. Firstly, I will divide all employees depends on their performance score and check their salaries.",
+    "file": "static/images/perfscroreid.png",
+    "number": 1,
+    "code": "ax = sns.displot(df, x='PerfScoreID', y='Salary')"
+  },
+  {
+    "descr": "From the graph it can be seen that there is a positive correlation between performance score of the employee and his/her salary. It can also be seen that most employees have scored 3. Also, it is clearly visible that there are some outliers, such as CEO, whose salary is much greater than others. I will remove him and some other employees with extremely high salaries from some parts of my analysis.",
+    "file": "static/images/perfscroreid2.png",
+    "number": 2,
+    "code": "z = np.abs(stats.zscore(df['Salary']))\ndf_zscored = df[z < 3]\nax = sns.displot(df_zscored, x='PerfScoreID', y='Salary')"
+  },
+  {
+    "descr": "Then I would like to take a look a the Engagement survey column and find out if it correlates with employees salaries.",
+    "file": "static/images/eng_surv3.png",
+    "number": 3,
+    "code": "sns.set_palette('tab10')\nax = sns.lmplot(df_zscored, x='EngagementSurvey', y='Salary', line_kws={'color': 'red'})"
+  },
+  {
+    "descr": "As it can be seen, there is a little positive correlation between the results of engagement survey and the salary of employees. Now I would also like to check if there is a correlation between absence rate and salary.",
+    "file": "static/images/abs_rate4.png",
+    "number": 4,
+    "code": "ax = sns.relplot(df_zscored, x='AbsenceRate', y='Salary')"
+  },
+  {
+    "descr": "As it can be seen, there are some outliers that make correlation less visible on this plot. I will remove them as I did with salaries and make a plot without them.",
+    "file": "static/images/abs_rate5.png",
+    "number": 5,
+    "code": "abscence_z = np.abs(stats.zscore(df['AbsenceRate']))\ndf_absence_zscored = df_zscored[abscence_z < 2]\nsns.set_theme(style=\"ticks\")\nax = sns.jointplot(df_absence_zscored, x='AbsenceRate', y='Salary', kind=\"hex\")"
+  },
+  {
+    "descr": "I would also like to check the following hypothesis: people who are single spend more time and effort on their job and get more satisfaction and higher salary from their jobs. From the barchart it can be seen that in three last columns (higher job satisfaction) there are single people who earn the greatest salaries.",
+    "file": "static/images/married_satisf6.png",
+    "number": 6,
+    "code": "ax = sns.displot(df_zscored, x='EmpSatisfaction', y='Salary', hue='MaritalDesc')"
+  },
+  {
+    "descr": "To make this observation visible more clearly, I will convert the Marital Status column to binary (Single/Not Single)",
+    "file": "static/images/marital_binary7.png",
+    "number": 7,
+    "code": "df_zscored['MaritalBinary'] = df['MaritalDesc'] == 'Single'\nfig, axes = plt.subplots(1, 2, sharey=True, figsize=(15, 7))\naxes = axes.flatten()\nsns.histplot(df_zscored[df_zscored['MaritalBinary']], x='EmpSatisfaction', y='Salary', ax=axes[0])\nsns.histplot(df_zscored[df_zscored['MaritalBinary'] is False], x='EmpSatisfaction', y='Salary', hue='MaritalDesc',\nax=axes[1])\nsns.move_legend(axes[1], \"upper left\")"
+  }
+]

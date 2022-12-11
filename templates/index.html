@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <script>hljs.highlightAll();</script>
+    <div class="px-4 py-5 my-5 text-center shadow" id="home">
+        <h1 class="display-5 fw-bold">Personal Project - Human Resources Dataset</h1>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                In this project I am going to analyze the dataset which contains information about employees of an IT
+                company.
+            </div>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                Pavel Shakhmin, Moscow 2022
+            </div>
+        </div>
+    </div>
+
+    <div class="divider" id="descriptive_stats"></div>
+    <div class="container">
+        <div class="row flex-lg-row-reverse shadow p-5">
+            <div class="d-grid gap-2  justify-content-sm-center">
+                <h2 class="fw-bold center">Descriptive statistics</h2>
+            </div>
+            <br>
+
+            {% for item in descriptive_stats %}
+                <div class="d-grid">
+                    <h4>&emsp;{{ item.col_name }}</h4>
+                    {{ item.description }}
+                    <table class="table-bordered">
+                        <tr>
+                            <th style="width: 20%">Mean</th>
+                            <th style="width: 20%">Median</th>
+                            <th style="width: 20%">Std</th>
+                            <th style="width: 20%">Min</th>
+                            <th style="width: 20%">Max</th>
+                        </tr>
+                        <tr>
+                            <td>{{ item.mean }}</td>
+                            <td>{{ item.median }}</td>
+                            <td>{{ item.std }}</td>
+                            <td>{{ item.min }}</td>
+                            <td>{{ item.max }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <br>
+            {% endfor %}
+            <a class="btn btn-outline-secondary mt-3" data-bs-toggle="collapse" href="#descriptive_stats_code"
+               role="button"
+               aria-expanded="false" aria-controls="collapseExample">
+                Show code
+            </a>
+            <div class="collapse" id="descriptive_stats_code">
+                <div class="card card-body">
+                    <pre>
+                        <code class="language-python pre-max-height">{{ code_to_display.descriptive_stats }}</code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="divider p-3" id="data_transformation"></div>
+    <div class="container">
+        <div class="row flex-lg-row-reverse shadow p-5">
+            <div class="d-grid gap-2 justify-content-sm-center">
+                <h2 class="fw-bold center">Data transformation</h2>
+            </div>
+            <div class="align-items-start">
+                As I did with the age of employees, I will add the column of absence rate per day (number of absences /
+                employment period)
+                <br>
+                #DOH = Date of Hire
+                <br>
+                #DOT = Date of Termination (04/01/2021 if employee is still employed)
+                <br>
+                It it also interesting to obtain mean, max, and min values of this metric.
+            </div>
+            <br>
+            <table class="table-bordered">
+                <tr>
+                    <th style="width: 20%">Mean</th>
+                    <th style="width: 20%">Median</th>
+                    <th style="width: 20%">Std</th>
+                    <th style="width: 20%">Min</th>
+                    <th style="width: 20%">Max</th>
+                </tr>
+                <tr>
+                    <td>{{ data_trans.abs_rate.mean }}</td>
+                    <td>{{ data_trans.abs_rate.median }}</td>
+                    <td>{{ data_trans.abs_rate.std }}</td>
+                    <td>{{ data_trans.abs_rate.min }}</td>
+                    <td>{{ data_trans.abs_rate.max }}</td>
+                </tr>
+            </table>
+            <a class="btn btn-outline-secondary mt-3" data-bs-toggle="collapse" href="#data_trans_code"
+               role="button"
+               aria-expanded="false" aria-controls="collapseExample">
+                Show code
+            </a>
+            <div class="collapse" id="data_trans_code">
+                <div class="card card-body">
+                    <pre>
+                        <code class="language-python pre-max-height">{{ code_to_display.data_trans }}</code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="divider p-3" id='data_visualization'></div>
+    <div class="container">
+        <div class="row flex-lg-row-reverse shadow p-5">
+            <div class="d-grid gap-2 justify-content-sm-center">
+                <h2 class="fw-bold center">Data visualization</h2>
+            </div>
+            {% for plot in plots %}
+                <div class="d-grid mb-5 row">
+                    <h5>&emsp;{{ plot.descr }}</h5>
+                    <div class="col shadow pt-3 m-3">
+                        <div class="d-flex justify-content-center">
+                            <img src="{{ plot.file }}" width="615%" alt="{{ plot.number }}">
+                        </div>
+                        <div class="d-flex pt-3 justify-content-center">
+                            <h3>Plot {{ plot.number }}</h3>
+                        </div>
+                        <div class="pb-3">
+                            <a class="btn btn-outline-secondary mt-3 col-12" data-bs-toggle="collapse"
+                               href="#plot_code_{{ plot.number }}"
+                               role="button"
+                               aria-expanded="false" aria-controls="collapseExample">
+                                Show code
+                            </a>
+                            <div class="collapse" id="plot_code_{{ plot.number }}">
+                                <div class="card card-body">
+                                    <pre><code
+                                            class="language-python pre-max-height">{{ plot.code }}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
