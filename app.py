@@ -51,7 +51,7 @@ def draw_graphs():
     ax = sns.lmplot(data=df_zscored, x='EngagementSurvey', y='Salary', line_kws={'color': 'red'})
     ax.savefig('static/images/eng_surv3.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
-    ax = sns.relplot(df_zscored, x='AbsenceRate', y='Salary')
+    ax = sns.relplot(data=df_zscored, x='AbsenceRate', y='Salary')
     ax.savefig('static/images/abs_rate4.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
     sns.set_theme(style="ticks")
