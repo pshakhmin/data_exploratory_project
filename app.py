@@ -55,16 +55,16 @@ def draw_graphs():
     ax.savefig('static/images/abs_rate4.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
     sns.set_theme(style="ticks")
-    ax = sns.jointplot(df_absence_zscored, x='AbsenceRate', y='Salary', kind="hex")
+    ax = sns.jointplot(data=df_absence_zscored, x='AbsenceRate', y='Salary', kind="hex")
     ax.savefig('static/images/abs_rate5.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
-    ax = sns.displot(df_zscored, x='EmpSatisfaction', y='Salary', hue='MaritalDesc')
+    ax = sns.displot(data=df_zscored, x='EmpSatisfaction', y='Salary', hue='MaritalDesc')
     ax.savefig('static/images/married_satisf6.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
     fig, axes = plt.subplots(1, 2, sharey=True, figsize=(15, 7))
     axes = axes.flatten()
-    sns.histplot(df_zscored[df_zscored['MaritalBinary']], x='EmpSatisfaction', y='Salary', ax=axes[0])
-    sns.histplot(df_zscored[df_zscored['MaritalBinary'] == False], x='EmpSatisfaction', y='Salary', hue='MaritalDesc',
+    sns.histplot(data=df_zscored[df_zscored['MaritalBinary']], x='EmpSatisfaction', y='Salary', ax=axes[0])
+    sns.histplot(data=df_zscored[df_zscored['MaritalBinary'] == False], x='EmpSatisfaction', y='Salary', hue='MaritalDesc',
                  ax=axes[1])
     sns.move_legend(axes[1], "upper left")
     fig.savefig('static/images/marital_binary7.png', dpi=300, bbox_inches='tight', pad_inches=0)
