@@ -13,7 +13,6 @@ from matplotlib import pyplot as plt
 from scipy import stats
 
 app = Flask(__name__, template_folder='templates', static_url_path='/static')
-
 df = pd.read_csv('data/HRDataset_v14.csv')
 plots = []
 code_to_display = {}
@@ -54,7 +53,7 @@ def draw_graphs():
     ax.savefig('static/images/perfscroreid2.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
     sns.set_palette('tab10')
-    ax = sns.lmplot(df_zscored, x='EngagementSurvey', y='Salary', line_kws={'color': 'red'})
+    ax = sns.lmplot(data=df_zscored, x='EngagementSurvey', y='Salary', line_kws={'color': 'red'})
     ax.savefig('static/images/eng_surv3.png', dpi=300, bbox_inches='tight', pad_inches=0)
 
     ax = sns.relplot(df_zscored, x='AbsenceRate', y='Salary')
