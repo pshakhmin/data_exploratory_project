@@ -64,7 +64,8 @@ def draw_graphs():
     fig, axes = plt.subplots(1, 2, sharey=True, figsize=(15, 7))
     axes = axes.flatten()
     sns.histplot(data=df_zscored[df_zscored['MaritalBinary']], x='EmpSatisfaction', y='Salary', ax=axes[0])
-    sns.histplot(data=df_zscored[df_zscored['MaritalBinary'] == False], x='EmpSatisfaction', y='Salary', hue='MaritalDesc',
+    sns.histplot(data=df_zscored[df_zscored['MaritalBinary'] == False], x='EmpSatisfaction', y='Salary',
+                 hue='MaritalDesc',
                  ax=axes[1])
     sns.move_legend(axes[1], "upper left")
     fig.savefig('static/images/marital_binary7.png', dpi=300, bbox_inches='tight', pad_inches=0)

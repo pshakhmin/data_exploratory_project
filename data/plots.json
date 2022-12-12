@@ -36,7 +36,7 @@
     "code": "ax = sns.displot(df_zscored, x='EmpSatisfaction', y='Salary', hue='MaritalDesc')"
   },
   {
-    "descr": "To make this observation visible more clearly, I will convert the Marital Status column to binary (Single/Not Single)",
+    "descr": "To make this observation visible more clearly, I will convert the Marital Status column to binary (Single/Not Single). It still can be seen that sigle people have the greatest salary in this company.",
     "file": "static/images/marital_binary7.png",
     "number": 7,
     "code": "df_zscored['MaritalBinary'] = df['MaritalDesc'] == 'Single'\nfig, axes = plt.subplots(1, 2, sharey=True, figsize=(15, 7))\naxes = axes.flatten()\nsns.histplot(df_zscored[df_zscored['MaritalBinary']], x='EmpSatisfaction', y='Salary', ax=axes[0])\nsns.histplot(df_zscored[df_zscored['MaritalBinary'] is False], x='EmpSatisfaction', y='Salary', hue='MaritalDesc',\nax=axes[1])\nsns.move_legend(axes[1], \"upper left\")"
