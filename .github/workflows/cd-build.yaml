@@ -45,7 +45,6 @@ jobs:
       - name: "Build and push"
         uses: docker/build-push-action@v2
         with:
-          context: eda/.
           push: true
           tags: |
             ghcr.io/pshakhmin/eda:latest
